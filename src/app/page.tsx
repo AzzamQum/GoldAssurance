@@ -6,13 +6,6 @@ import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Globe,
@@ -21,17 +14,9 @@ import {
   DollarSign,
   Package,
   Anchor,
-  CreditCard,
   Menu,
 } from "lucide-react";
-import {
-  SignIn,
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import SendMoneySection from "@/components/sendMoneyComponent";
 
 export default function LandingPage() {
@@ -69,7 +54,8 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="flex  flex-col min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-gray-800/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link className="flex items-center justify-center space-x-2" href="/">
@@ -130,14 +116,17 @@ export default function LandingPage() {
           </motion.div>
         )}
       </header>
+
+      {/* Main Content */}
       <main className="flex-1">
+        {/* Hero Section */}
         <section className="relative w-full py-20 md:py-32 lg:py-48 overflow-hidden">
           <motion.div className="absolute inset-0 z-0" style={{ opacity }}>
             <Image
               src="/assets/1.png"
               alt="Global Trade Background"
-              fill
-              className="object-cover"
+              layout="fill"
+              objectFit="cover"
             />
             <div className="absolute inset-0 bg-black/50" />
           </motion.div>
@@ -187,6 +176,8 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        {/* Services Section */}
         <motion.section
           id="services"
           className="w-full py-20 md:py-32"
@@ -195,7 +186,7 @@ export default function LandingPage() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="container mx-auto px-4 md:px-24">
+          <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
               Our Services
             </h2>
@@ -252,15 +243,17 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
+
+        {/* Features Section */}
         <motion.section
           id="features"
-          className="w-full py-20 md:py-32 bg-gray-200 dark:bg-gray-800"
+          className="w-full py-20 md:py-32 bg-gray-50 dark:bg-gray-800"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="container mx-auto px-4 md:px-60">
+          <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
               Why Choose Us
             </h2>
@@ -302,18 +295,20 @@ export default function LandingPage() {
               </div>
               <div className="relative h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+                  src="/assets/1.png"
                   alt="Global Trade Solutions"
-                  fill
-                  className="object-cover"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
             </div>
           </div>
         </motion.section>
 
+        {/* Send Money Section */}
         <SendMoneySection />
 
+        {/* Contact Section */}
         <motion.section
           id="contact"
           className="w-full py-20 md:py-32 bg-primary text-primary-foreground"
@@ -336,7 +331,7 @@ export default function LandingPage() {
               <div className="w-full max-w-sm space-y-2">
                 <form className="flex flex-col space-y-2">
                   <Input
-                    className="max-w-lg h-24flex-1 bg-primary-foreground text-primary"
+                    className="max-w-lg flex-1 bg-primary-foreground text-primary"
                     placeholder="Enter your email"
                     type="email"
                   />
@@ -358,10 +353,12 @@ export default function LandingPage() {
           </div>
         </motion.section>
       </main>
+
+      {/* Footer */}
       <footer className="w-full py-6 bg-gray-100 dark:bg-gray-800">
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            © 2024 Golden Assurance Inc. All rights reserved.
+            © 2024 GlobalTrade Solutions. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6 mt-4 md:mt-0">
             <Link
