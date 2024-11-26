@@ -134,7 +134,7 @@ export default function LandingPage() {
         <section className="relative w-full py-20 md:py-32 lg:py-48 overflow-hidden">
           <motion.div className="absolute inset-0 z-0" style={{ opacity }}>
             <Image
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
+              src="/assets/1.png"
               alt="Global Trade Background"
               fill
               className="object-cover"

@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { SignedIn, SignedOut, SignIn, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 export default function SendMoneySection() {
   const [amount, setAmount] = useState("");
@@ -25,10 +25,12 @@ export default function SendMoneySection() {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);
 
     if (
       !amount ||
@@ -39,19 +41,45 @@ export default function SendMoneySection() {
       !cvv
     ) {
       setError("Please fill in all fields");
+      setIsSubmitting(false);
       return;
     }
 
-    // Here you would typically send the data to your backend
-    console.log("Sending money:", {
-      amount,
-      currency,
-      swiftCode,
-      cardNumber,
-      expiryDate,
-      cvv,
-    });
-    // Reset form or show success message
+    try {
+      // Replace this with an actual API call to your backend service
+      const response = await fetch("/api/send-money", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount,
+          currency,
+          swiftCode,
+          cardNumber,
+          expiryDate,
+          cvv,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send money");
+      }
+
+      // Handle successful submission
+      alert("Money sent successfully!");
+      // Reset form fields
+      setAmount("");
+      setCurrency("");
+      setSwiftCode("");
+      setCardNumber("");
+      setExpiryDate("");
+      setCvv("");
+    } catch (error) {
+      setError("An error occurred while sending money. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -151,8 +179,12 @@ export default function SendMoneySection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button type="submit" className="w-full">
-                      Send Money
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Money"}
                     </Button>
                   </motion.div>
                 </form>
